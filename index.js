@@ -11,6 +11,19 @@ const passportLocal = require('./config/passport_local_strategy');
 // to persist the cookies(user id) into db even if server restarts
 const MongoStore = require('connect-mongo');
 
+//  require sass
+const sassMiddleware = require('node-sass-middleware');
+// before the server starts
+app.use(sassMiddleware(
+    {
+        src : './assets/scss',
+        dest : './assets/css',
+        debug: true,
+        outputStyle : 'extended',
+        prefix : '/css',
+    }
+));
+
 // middleware
 app.use(express.urlencoded());
 app.use(cookieParser());
