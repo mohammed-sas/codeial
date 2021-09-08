@@ -3,10 +3,13 @@
 
     <section id="feed-post">
         <h4>Posts</h4>
+        <!-- if user is present in locals -->
+        <% if(locals.user) {%>
         <form action="/post/create" id="new-post-form" method="POST">
             <textarea name="content" cols="30" rows="10" placeholder="type here..."></textarea>
             <input type="submit" value="Post">
         </form>
+        <%}%>
     </section>
 
     <div id="post-list-div">
@@ -14,7 +17,10 @@
             <% for(post of posts) {%>
                 <li>
                     <%= post.content%>
-                    <%= post.user%>
+                    <br>
+                    <%= post.user.name%>
+                    <br>
+                    <%= post.createdAt%>
                 </li>
             <% } %>
 
