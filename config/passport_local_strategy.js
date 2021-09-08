@@ -54,7 +54,6 @@ passport.checkAuthentication = function (req,res,next){ // our own function /mid
     console.log(req.session);
     console.log(req.isAuthenticated());
     if(req.isAuthenticated()){
-        console.log("test 1233");
         return next();
     }
 
