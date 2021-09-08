@@ -1,6 +1,7 @@
-const Post = require('../models/post');
 const User = require('../models/user');
-module.exports.home = async function (req, res) {
+const Post = require('../models/post');
+
+module.exports.home =  function (req, res) {
 
     // Post.find({}, function (err, posts) {
     //     if (err) {
@@ -15,8 +16,16 @@ module.exports.home = async function (req, res) {
     //     });
     // });
     //    console.log(Post.find({}));
-    Post.find({}).populate('user').exec(function (err, posts) {
-
+    Post.find({})
+    .populate('user')
+    .populate({
+        path :'comment',
+        populate:{
+            path : 'user'
+        }
+    })
+    .exec(function (err, posts) {
+        console.log(posts);
         if(err){
             console.log(`error in side populate ${err}`);
             return;

@@ -16,3 +16,12 @@ module.exports.create = function(req,res){
         }
     );
 };
+
+module.exports.destroy = function(req,res){
+    Post.findById(req.params.id,function (err,post){
+        // only the user who has created the post can delete the post
+        if(post.user == req.user.id){
+
+        }
+    })
+}

@@ -8,6 +8,7 @@ router.use('/users',require('./users'));
 // for any further routers
 // router.use('/routerName',require('./routerfile'))
 router.use('/post',require('./post'));
+router.use('/comment',require('./comment'));
 
 console.log('route loaded');
 module.exports = router; 
