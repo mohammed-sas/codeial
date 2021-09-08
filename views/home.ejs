@@ -15,7 +15,10 @@
     <div id="post-list-div">
                 <ul>
                         <% for(post of posts) { %>
-                        <li>
+                        <li>        
+                                    <% if((locals.user) && (locals.user.id == post.user.id)) { %>
+                                    <small><a href="/post/destroy/<%= post._id%>">Delete Post</a></small>
+                                    <% }%>
                                     <%= post.content%>
                                     <br>
                                     <%= post.user.name%>
@@ -34,17 +37,21 @@
 
                                             <div class="post-comments-list">
                                             <ul id="post-comment-<%= post._id%>">
-                                                <li>
+                                                
                                                     <% for (i of post.comment) {%>
+                                                    <li>
                                                     <p>
                                                         <%= i.content%>
                                                         <br>
                                                         <small> <%= i.user.name%> </small>
                                                     </p>
-                                                    <% } %>
-                                                </li>
-                               
+                                                    <small><a href="/comment/destroy/<%=i._id%>">Delete Comment</a></small>
 
+                                                    </li>
+                                                    <% } %>
+                                                
+                               
+                                            </ul>
 
                                             </div>
                                     </div>
