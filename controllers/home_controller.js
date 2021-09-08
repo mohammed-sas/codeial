@@ -25,15 +25,16 @@ module.exports.home =  function (req, res) {
         }
     })
     .exec(function (err, posts) {
-        console.log(posts);
-        if(err){
-            console.log(`error in side populate ${err}`);
-            return;
-        }
-        return res.render('home', {
+        User.find({},function (err,users){
+            return res.render('home', {
             title: "Codeial | Home",
-            posts: posts
+            posts: posts,
+            all_users : users
         });
+        });
+
+        
+        
     });
 
     // let posts = await Post.find({}).populate('user');
