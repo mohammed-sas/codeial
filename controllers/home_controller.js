@@ -1,7 +1,7 @@
 const User = require('../models/user');
 const Post = require('../models/post');
 
-module.exports.home =  function (req, res) {
+module.exports.home = async function(req, res) {
 
     // Post.find({}, function (err, posts) {
     //     if (err) {
@@ -16,26 +16,27 @@ module.exports.home =  function (req, res) {
     //     });
     // });
     //    console.log(Post.find({}));
-    Post.find({})
+ let posts = await  Post.find({})
     .populate('user')
     .populate({
         path :'comment',
         populate:{
             path : 'user'
         }
-    })
-    .exec(function (err, posts) {
-        User.find({},function (err,users){
+    });
+
+let users =await User.find({});
+
             return res.render('home', {
             title: "Codeial | Home",
             posts: posts,
             all_users : users
         });
-        });
+    
 
         
         
-    });
+    
 
     // let posts = await Post.find({}).populate('user');
 
