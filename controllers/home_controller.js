@@ -16,7 +16,8 @@ module.exports.home = async function(req, res) {
     //     });
     // });
     //    console.log(Post.find({}));
- let posts = await  Post.find({})
+    try{
+        let posts = await  Post.find({})
     .populate('user')
     .populate({
         path :'comment',
@@ -33,8 +34,9 @@ let users =await User.find({});
             all_users : users
         });
     
-
-        
+    }catch(err){
+        console.log(`error in home controller ${err}`);
+    }
         
     
 
