@@ -1,2 +1,18 @@
 body {
   background: linear-gradient(to right, purple, blue); }
+
+#home-container {
+  display: flex; }
+  #home-container #feed-post {
+    padding: 1rem;
+    width: 25%; }
+  #home-container #post-list-div {
+    padding: 1rem;
+    width: 40%; }
+  #home-container #user-friends {
+    padding: 1rem;
+    border-left: 1px solid black;
+    height: 100vh; }
+    #home-container #user-friends p a {
+      text-decoration: none;
+      color: white; }

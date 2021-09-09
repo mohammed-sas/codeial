@@ -1,3 +1,30 @@
 body{
     background: linear-gradient(to right , purple,blue);
 }
+
+
+#home-container{
+    display : flex;
+
+    #feed-post{
+        padding:1rem;
+        width: 25%;
+    }
+
+    #post-list-div{
+        padding:1rem;
+        width: 40%;
+    }
+
+    #user-friends{
+        padding: 1rem;
+        border-left: 1px solid black;
+        height: 100vh;
+        p{
+            a{
+                text-decoration: none;
+                color: white;
+            }
+        }
+    }
+}
