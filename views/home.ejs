@@ -6,13 +6,15 @@
 
         <% if(locals.user) { %>
         <form action="/post/create" id="new-post-form" method="POST">
-            <textarea name="content" cols="30" rows="10" placeholder="type here..." required></textarea>
+            <textarea name="content" col
+            
+            s="30" rows="10" placeholder="type here..." required></textarea>
             <input type="submit" value="Post">
         </form>
         <% } %>
     </section>
 
-    <section id="post-list-div">
+    <section id="post-list-container">
                 <ul>
                         <% for(post of posts) { %>
                         
@@ -33,3 +35,5 @@
     </section>
 
 </div>
+
+<script src="/js/home_post.js"></script>
