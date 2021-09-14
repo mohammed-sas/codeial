@@ -39,6 +39,7 @@ passport.serializeUser(function(user,done){
 // deserializing the user from the cookies file hence we need only the id
 
 passport.deserializeUser(function(id,done){
+    console.log("********** deserializer in passport",id);
     User.findById(id , function (err,user){
         if(err){
             console.log("error in finding user in passort");
@@ -52,7 +53,7 @@ passport.deserializeUser(function(id,done){
 // check if the user is authenticated
 passport.checkAuthentication = function (req,res,next){ // our own function /middleware
     // if the user is signed in pass the req to the controllers action
-    console.log(req.session);
+    console.log("****** checking authentication in passport",req.session);
     console.log(req.isAuthenticated());
     if(req.isAuthenticated()){
         return next();
