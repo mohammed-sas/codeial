@@ -14,7 +14,8 @@ module.exports.createSession = async function(req,res){
     return res.json(200,{
         message : 'sign in successful , your jwt is generated ',
         data : {
-            token : jwt.sign(user.toJSON(),'codeial',{expiresIn : '10000'})
+            // here the codeial is the secret string
+            token : jwt.sign(user.toJSON(),'codeial',{expiresIn : '100000'})
         }
     })
 

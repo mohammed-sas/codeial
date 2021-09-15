@@ -10,6 +10,7 @@ module.exports.index =async function(req,res){
                             path : 'comment',
                             populate : {
                                 path : 'user',
+                                // we dont show password while display
                                 select: '-password'
                             }
                         });
@@ -26,14 +27,21 @@ module.exports.destroy = async function(req,res){
      let post = await Post.findById(req.params.id);
         // only the user who has created the post can delete the post
         // _id gives number whereas in mongoose .id converts to string
-       
+
+        if(post.user == req.user.id){
         post.remove();
+        
         await Comment.deleteMany({post : req.params.id});
        
 
         return res.json(200,{
             message: "post deleted"
         });
+    }else{
+        return res.json(401,{
+            message : 'you cannot delete this post'
+        });
+    }
         
     
     }catch(err){

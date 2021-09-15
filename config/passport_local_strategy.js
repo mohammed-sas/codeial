@@ -29,6 +29,7 @@ passport.use(new LocalStrategy({
 // serializing the user to decide which key to be kept in the cookies
 
 passport.serializeUser(function(user,done){
+    console.log("********serializeUser in passport ********");
     console.log(user);
     done(null,user.id);
     // user._id return a number
