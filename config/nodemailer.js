@@ -6,6 +6,7 @@ const path = require('path');
 let transporter = nodemailer.createTransport({
     service : 'gmail',
     host : 'smtp.gmail.com',
+    // tsl port on which smtp works
     port : 587,
     secure : false,
     auth : {
