@@ -10,7 +10,9 @@ router.use('/users',require('./users'));
 router.use('/post',require('./post'));
 router.use('/comment',require('./comment'));
 
+
 router.use('/api',require('./api'));
 
+router.use('/reset_password',require('./reset_password'));
 console.log('route loaded');
 module.exports = router; 
