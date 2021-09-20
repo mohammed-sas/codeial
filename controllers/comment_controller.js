@@ -3,6 +3,7 @@ const Post = require('../models/post');
 const commentMailer = require('../mailers/comments_mailer');
 const commentEmailWorker = require('../workers/comment_email_worker');
 const queue = require('../config/kue');
+const Like = require('../models/like');
 module.exports.create = async function(req,res){
     try{
  let post = await Post.findById(req.body.post);
@@ -28,6 +29,15 @@ module.exports.create = async function(req,res){
                     console.log('queue email job with job id ******* ',job.id);
                 });
 
+                if(req.xhr){
+                    return res.status(200).json({
+                        data : {
+                            comments : comments
+                        },
+                        message : 'comment created'
+                    });
+                }
+
                 req.flash('success',"Comment posted successfully");
                 res.redirect('/');
             
@@ -45,9 +55,23 @@ module.exports.destroy =async function (req,res){
         if(comment.user == req.user.id){
             let postId = comment.post;
             comment.remove();
+
            let post = Post.findByIdAndUpdate(postId,{$pull : {comment : req.params.id}});
+               
+                await Like.deleteMany({likeable: comment._id,onModel : 'Comment'});
+
+                if(req.xhr){
+                    return res.status(200).json({
+                        data : {
+                            comment_id : req.params.id
+                        },
+                        message : 'Comment Deleted'
+                    });
+                }
+
                 req.flash('error',"comment deleted");
                 return res.redirect('back');
+           
             
         }else{
             return res.redirect('back');

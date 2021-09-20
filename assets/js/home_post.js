@@ -31,9 +31,11 @@
                     ${post.user.name}
                     <br>
                     ${post.createdAt}
+                    <br>
+                   
 
                     <div class="post-comments">
-                        <form action="/comment/create" method="post">
+                        <form id="new-comment-form" action="/comment/create" method="post">
                             <input type="text" name="content" placeholder="type here to add comment..." required>
                             <input type="hidden" name="post" value="${ post._id}">
                             <input type="submit" value="Add Comment">
