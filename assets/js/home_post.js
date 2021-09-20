@@ -12,6 +12,9 @@
                     let newPost = newPostDom(data.data.post);
                     $('#post-list-container>ul').prepend(newPost);
                     deletePost($(' .delete-post-button',newPost));
+                    // to enable toggle like functionality in new post
+                    new ToggleLike($(' .toggle-like-button',newPost));
+
                     console.log(data);
                 },
                 error: function (error) {
@@ -32,6 +35,12 @@
                     <br>
                     ${post.createdAt}
                     <br>
+                    <br>
+                    <small>
+                        <a class="toggle-like-button" data-likes="0" href="/like/toggle/?id=${post._id}&type=Post">
+                        0 likes
+                        </a>
+                    </small>
                    
 
                     <div class="post-comments">
@@ -43,14 +52,14 @@
 
 
                             <div class="post-comments-list">
-                            <ul id="post-comment-${ post._id}">
-                                
-                                    <% for (i of post.comment) {%>
-                                        <%- include('_comment') -%>
-                                    <% } %>
-                                
+                                <ul id="post-comment-${ post._id}">
+                                    
+                                       
+                                            
+                                        
+                                    
 
-                            </ul>
+                                </ul>
 
                             </div>
                     </div>

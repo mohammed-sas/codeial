@@ -12,6 +12,9 @@
                     let newComment = newCommentDom(data.data.comments);
                     $('.post-comments-list>ul').prepend(newComment);
                     deleteComment($(' .delete-comment-button',newComment));
+
+                    // to enable toggle like button functionality in new comment
+                    new ToggleLike($(' .toggle-like-button',newComment));
                 },
                 error : function(err){
                     console.log(error.responseText);
