@@ -14,5 +14,6 @@ router.use('/comment',require('./comment'));
 router.use('/api',require('./api'));
 
 router.use('/reset_password',require('./reset_password'));
+router.use('/like',require('./like'));
 console.log('route loaded');
 module.exports = router; 
