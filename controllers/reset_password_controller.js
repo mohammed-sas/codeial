@@ -49,3 +49,39 @@ module.exports.findEmail = async function (req,res){
         console.log('error in reset password',err);
     }
 }
+
+module.exports.findToken = async function(req,res){
+    
+    
+   
+    let validToken = await ResetPassword.findOne({accessToken : req.params.accessToken});
+    console.log("valid token ***********",validToken);
+
+    if(validToken.isValid === true){
+        validToken.isValid = false;
+        validToken.save();
+        await validToken.populate('user');
+        console.log('populated valid token*****',validToken);
+        return res.render('updatePassword',{
+            email : validToken.user.email
+        });
+        
+    }else{
+        return res.render('user_sign_in');
+    }
+   
+    
+}
+
+module.exports.update = async function(req,res){
+    console.log(req.body);
+    let user = await User.findOne({email : req.body.email});
+    console.log('finding user based on access token',user);
+    if(req.body.password === req.body.confirm_password){
+    user.password = req.body.password;
+    user.save();
+    return res.render('user_sign_in');
+    }else{
+        return res.render('updatePassword');
+    }
+}
