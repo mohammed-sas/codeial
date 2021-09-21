@@ -31,12 +31,11 @@ module.exports.home = async function(req, res) {
         }
         }).populate('likes');
 
-        
-        let currentUser = await User.findOne({_id : req.user.id});
-        
-         
+        console.log(req.user);
+        let currentUser;
 
-        console.log("current user populate ***** ",currentUser);
+        if(req.user){        
+        currentUser = await User.findOne({_id : req.user.id});
         await currentUser.populate({
             path : 'friendships',
             populate :{
@@ -46,8 +45,15 @@ module.exports.home = async function(req, res) {
             
             
         });
+        console.log("current user populate ***** ",currentUser);
+        
         console.log('populate user****** ',currentUser);
-        console.log(currentUser.friendships[0].to_user.name);
+       
+        }
+        
+         
+
+        
         let users =await User.find({});
 
             return res.render('home', {

@@ -16,26 +16,40 @@ module.exports.add =async function(req,res){
 
     console.log('from user ****',fromUser.name);
     console.log('to user****',toUser.name);
-    await friendship.populate([{
-        path : 'from_user',
-        ref : 'User',
-        select :'-password -friendships -email -createdAt -updatedAt'
-    },
-    {
-        path : 'to_user',
-        ref : 'User',
-        select :'-password -friendships -email -createdAt -updatedAt'
-    }]
-    );
-
-    console.log('populate friendship *****',friendship);
-  
+    
 
     fromUser.friendships.push(friendship);
     fromUser.save();
     toUser.friendships.push(friendship);
     toUser.save();
+    return res.render('home');
     
+
+
+}
+
+module.exports.remove = async function(req,res){
+    try{
+        console.log("remove friend controllers ****",req.query);
+
+        let friends = await Friendship.findOne({
+            from_user: req.query.from_user,
+            to_user : req.query.to_user
+        })
+
+        console.log(friends);
+
+        await User.findByIdAndUpdate(req.query.from_user,
+            {$pull : {friendships : friends._id}});
+        
+        await User.findByIdAndUpdate(req.query.to_user,
+            {$pull : {friendships : friends._id}});
+        
+        friends.remove();
+        return res.redirect('back');
+    }catch(err){
+        console.log('error in deleting friends',err);
+    }
 
 
 }

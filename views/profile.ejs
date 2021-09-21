@@ -21,6 +21,12 @@
 <br>
 <small><%= profile_user.id%> <%= profile_user.name%></small>
 <br>
-<button><a href="/add_friend/?from_user=<%= user.id%>&to_user=<%= profile_user.id%>" >Add Friend</a></button>
 
+    <% if(!friendshipExist) {%>
+        <button><a href="/add_friend/?from_user=<%= user.id%>&to_user=<%= profile_user.id%>" >Add Friend</a></button>
+
+    <% } else{%>
+        <button><a href="/add_friend/delete/?from_user=<%= user.id%>&to_user=<%= profile_user.id%>" >Remove Friend</a></button>
+
+    <% }%>
 <% } %>

@@ -1,11 +1,35 @@
 const User = require('../models/user.js');
 const fs = require('fs');
 const path = require('path');
-module.exports.profile = function (req,res){
+module.exports.profile = async function (req,res){
+
+    let friendshipExist = false;
+    let loggedInUser = await User.findOne(
+        {
+            _id : req.user.id , 
+           
+        }
+        );
+    await loggedInUser.populate({
+        path:'friendships',
+        select:'-from_user -createdAt -updatedAt -__v '
+    });
+
+    console.log(loggedInUser);
+    for(let i = 0 ; i<loggedInUser.friendships.length ; i++){
+        if(loggedInUser.friendships[i].to_user == req.params.id){
+            friendshipExist = true;
+            break;
+        }
+    }
+
+    console.log('friend  ship exist ***',friendshipExist);
+  
     User.findById(req.params.id,function (err,user){
         return res.render('profile',{
             title: 'User profile',
-            profile_user : user
+            profile_user : user,
+            friendshipExist : friendshipExist
         })
     })
     

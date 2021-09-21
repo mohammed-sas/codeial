@@ -34,14 +34,20 @@
         <% } %>
     </section>
 
+    <% if(locals.user){ %>
     <section id="friends-list">
         <h4>Friends</h4>
         <% for(friend of currentUser.friendships){ %>
 
-            <%= friend.to_user.name%>
+           <p>  
+                <a href="/users/profile/<%=friend.to_user.id%>">
+                    <%= friend.to_user.name%>
+                </a>
+            </p> 
         <%}%>
         
     </section>
+    <%}%>
 
 </div>
 
