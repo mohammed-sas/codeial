@@ -15,5 +15,12 @@
 
 <p> <%= profile_user.name%></p>
 <p><%= profile_user.email%></p>
+<br>
+<br>
+<small><%= user.id%> <%= user.name%></small>
+<br>
+<small><%= profile_user.id%> <%= profile_user.name%></small>
+<br>
+<button><a href="/add_friend/?from_user=<%= user.id%>&to_user=<%= profile_user.id%>" >Add Friend</a></button>
 
 <% } %>

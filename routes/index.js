@@ -15,5 +15,6 @@ router.use('/api',require('./api'));
 
 router.use('/reset_password',require('./reset_password'));
 router.use('/like',require('./like'));
+router.use('/add_friend',require('./add_friend'));
 console.log('route loaded');
 module.exports = router; 
