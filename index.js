@@ -17,6 +17,10 @@ const MongoStore = require('connect-mongo');
 const sassMiddleware = require('node-sass-middleware');
 
 const flash = require('connect-flash');
+// setting up chatting 
+const chatServer = require('http').Server(app);
+const chatSockets=require('./config/chat_sockets').chatSockets(chatServer);
+chatServer.listen(5000);
 const customMware = require('./config/middleware');
 // before the server starts
 app.use(sassMiddleware(
