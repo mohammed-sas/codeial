@@ -21,7 +21,12 @@ module.exports.chatSockets = function(socketServer) {
             // this emits the info to all other user that a user has joined the chatroom
             io.in(data.chatRoom).emit('user_joined',data);
 
-        })
+        });
+
+        // detect send_message and broadcast to everyone in the room
+        socket.on('send_message',function(data){
+            io.in(data.chatRoom).emit('receive_message',data);
+        });
 
     })
 
