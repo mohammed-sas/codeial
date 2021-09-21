@@ -34,6 +34,15 @@
         <% } %>
     </section>
 
+    <section id="friends-list">
+        <h4>Friends</h4>
+        <% for(friend of currentUser.friendships){ %>
+
+            <%= friend.to_user.name%>
+        <%}%>
+        
+    </section>
+
 </div>
 
 <script src="/js/home_post.js"></script>

@@ -16,11 +16,26 @@ module.exports.add =async function(req,res){
 
     console.log('from user ****',fromUser.name);
     console.log('to user****',toUser.name);
+    await friendship.populate([{
+        path : 'from_user',
+        ref : 'User',
+        select :'-password -friendships -email -createdAt -updatedAt'
+    },
+    {
+        path : 'to_user',
+        ref : 'User',
+        select :'-password -friendships -email -createdAt -updatedAt'
+    }]
+    );
+
+    console.log('populate friendship *****',friendship);
+  
 
     fromUser.friendships.push(friendship);
     fromUser.save();
     toUser.friendships.push(friendship);
     toUser.save();
+    
 
 
 }
