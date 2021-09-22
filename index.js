@@ -4,6 +4,8 @@ const app = express();
 const port = 8000;
 const expressLayout = require('express-ejs-layouts');
 const environment = require('./config/environment');
+// for logging purpose
+const logger = require('morgan');
 const db = require('./config/mongoose');
 // used for session cookie
 const session = require('express-session');
@@ -25,15 +27,17 @@ chatServer.listen(5000);
 const customMware = require('./config/middleware');
 // before the server starts
 const path = require('path');
-app.use(sassMiddleware(
-    {
-        src : path.join(__dirname,environment.asset_path,'scss') ,
-        dest : path.join(__dirname,environment.asset_path,'css'),
-        debug: true,
-        outputStyle : 'extended',
-        prefix : '/css',
-    }
-));
+if(environment.name == 'development'){
+    app.use(sassMiddleware(
+        {
+            src : path.join(__dirname,environment.asset_path,'scss') ,
+            dest : path.join(__dirname,environment.asset_path,'css'),
+            debug: true,
+            outputStyle : 'extended',
+            prefix : '/css',
+        }
+    ));
+}
 
 // middleware
 app.use(express.urlencoded());
@@ -42,6 +46,8 @@ app.use(express.static(environment.asset_path));
 
 // make the uploads path available to the broweser
 app.use('/uploads',express.static(__dirname + '/uploads'));
+
+app.use(logger(environment.morgan.mode,environment.morgan.options));
 
 app.use(expressLayout);
 
