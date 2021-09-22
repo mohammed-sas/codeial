@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const port = 8000;
 const expressLayout = require('express-ejs-layouts');
+const environment = require('./config/environment');
 const db = require('./config/mongoose');
 // used for session cookie
 const session = require('express-session');
@@ -23,10 +24,11 @@ const chatSockets=require('./config/chat_sockets').chatSockets(chatServer);
 chatServer.listen(5000);
 const customMware = require('./config/middleware');
 // before the server starts
+const path = require('path');
 app.use(sassMiddleware(
     {
-        src : './assets/scss',
-        dest : './assets/css',
+        src : path.join(__dirname,environment.asset_path,'scss') ,
+        dest : path.join(__dirname,environment.asset_path,'css'),
         debug: true,
         outputStyle : 'extended',
         prefix : '/css',
@@ -36,7 +38,7 @@ app.use(sassMiddleware(
 // middleware
 app.use(express.urlencoded());
 app.use(cookieParser());
-app.use(express.static('./assets'));
+app.use(express.static(environment.asset_path));
 
 // make the uploads path available to the broweser
 app.use('/uploads',express.static(__dirname + '/uploads'));
@@ -56,7 +58,7 @@ app.set('views', './views');
 app.use(session({
     name: 'codeial',
     // todo to change the secret before production mode
-    secret: 'mohammed',
+    secret: environment.session_cookie_key,
     saveUninitialized: false,
     resave: false,
     cookie: {

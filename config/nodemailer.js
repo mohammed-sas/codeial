@@ -1,19 +1,10 @@
 const nodemailer = require('nodemailer');
 const ejs = require('ejs');
 const path = require('path');
+const environment = require('./environment');
 
 // this send the emails and defines how comm takes place
-let transporter = nodemailer.createTransport({
-    service : 'gmail',
-    host : 'smtp.gmail.com',
-    // tsl port on which smtp works
-    port : 587,
-    secure : false,
-    auth : {
-        user : 'mohammed.neog',
-        pass : 'stwnziabqkynqbhd'
-    }
-});
+let transporter = nodemailer.createTransport(environment.smtp);
 
 // it defines where the files would be placed and what to render
 

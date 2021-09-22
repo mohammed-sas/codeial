@@ -31,7 +31,7 @@ module.exports.home = async function(req, res) {
         }
         }).populate('likes');
 
-        console.log(req.user);
+        
         let currentUser;
 
         if(req.user){        
@@ -45,9 +45,7 @@ module.exports.home = async function(req, res) {
             
             
         });
-        console.log("current user populate ***** ",currentUser);
         
-        console.log('populate user****** ',currentUser);
        
         }
         

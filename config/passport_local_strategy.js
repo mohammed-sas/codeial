@@ -7,7 +7,7 @@ passport.use(new LocalStrategy({
     },
     function(req, email,password,done){ // done is a function in passport which reports to passport.js
         // find a user and establish identity
-        console.log("**************************",email,password);
+        
         User.findOne({email : email},function (err,user){
             if(err){
                 req.flash('error',err);
@@ -29,8 +29,7 @@ passport.use(new LocalStrategy({
 // serializing the user to decide which key to be kept in the cookies
 
 passport.serializeUser(function(user,done){
-    console.log("********serializeUser in passport ********");
-    console.log(user);
+   
     done(null,user.id);
     // user._id return a number
     // user.id returns a string
@@ -40,7 +39,7 @@ passport.serializeUser(function(user,done){
 // deserializing the user from the cookies file hence we need only the id
 
 passport.deserializeUser(function(id,done){
-    console.log("********** deserializer in passport",id);
+
     User.findById(id , function (err,user){
         if(err){
             console.log("error in finding user in passort");

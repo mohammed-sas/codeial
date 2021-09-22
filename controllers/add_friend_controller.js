@@ -28,7 +28,7 @@ module.exports.add =async function(req,res){
 
 module.exports.remove = async function(req,res){
     try{
-        console.log("remove friend controllers ****",req.query);
+       
 
         let friends = await Friendship.findOne({
             from_user: req.query.from_user,

@@ -2,6 +2,7 @@ const passport = require('passport');
 const JWTStrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
 const User = require('../models/user');
+const environment = require('./environment');
 
 let opts = {
     // header is a list of keys , it has a key called authorisation which is also
@@ -9,7 +10,7 @@ let opts = {
     // the below is used to extract json token
     jwtFromRequest : ExtractJWT.fromAuthHeaderAsBearerToken(),
     // this is our encryption or decryption string for the json token
-    secretOrKey : 'codeial',
+    secretOrKey : environment.jwt_secret,
 
 }
 
