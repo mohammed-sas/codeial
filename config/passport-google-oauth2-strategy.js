@@ -8,7 +8,7 @@ const environment = require('./environment');
 passport.use(new googleStrategy({
     clientID : environment.google_client_id,
     clientSecret : environment.google_client_secret,
-    callbackURL : environment.google_client_secret
+    callbackURL : environment.google_call_back_url
 },
     // google generates an access token and sends to use
     // if our access token expires then we use refresh token to get new access token
