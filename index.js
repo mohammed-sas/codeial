@@ -42,7 +42,7 @@ if(environment.name == 'development'){
 }
 
 // middleware
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended:false}));
 app.use(cookieParser());
 app.use(express.static(environment.asset_path));
 
